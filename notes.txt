@@ -1,0 +1,63 @@
+MOVE AN ELEMENT VIA A BROWSER EVENT
+
+element.addUserEvent("event", callbackFunction)
+# ^this is what I think
+
+document.addEventListener("keydown", 
+function(event) {
+    console.log(event);
+});
+
+^seems like "event" is expressed to remind
+us that the function automatically takes 
+the event as an argument (usually happens 
+in the background without us noticing it)
+- it's actually used to log the event itself in 
+- devtools console
+
+document.addEventListener("keydown",
+function (event) {
+    if (event.key === "ArrowLeft") {
+        const leftNumbers = 
+        dodger.style.left.replace('px', '');
+        const left = 
+        parseInt(leftNumbers, 10);
+
+        dodger.style.left = `${left - 1}px`;
+    }
+});
+
+# Don't really what the const = leftNumbers or 
+# const = left do and why it's necessary
+- dodger.style.left returns "175px"
+- leftNumbers removes the "px"
+- left turns "175" into 175
+- 175 can then be used to set the movement limit
+
+UPDATE ELEMENT POSITION CONDITIONALLY
+
+break it down into  1) addEventsListener and 2) function
+
+1) ADDEVENTLISTENER:
+
+document.addEventListener("keydown", 
+    function (e) { #here we need an argument to determine
+                    #if the keydown is an ArrowLeft,
+                    #otherwise, any key would trigger 
+                    # moveDodgerLeft
+        if (e.key ==="ArrowLeft") {
+            moveDodgerLeft();
+        }
+    });
+
+2) FUNCTION:
+
+function moveDodgerLeft() {
+    const leftNumbers= 
+    dodger.style.left.replace("px","");
+    const left=parseInt(leftNumbers,10);
+    if (left>0) {
+        dodger.style.left = `${left-1}px`;
+    }
+}
+
